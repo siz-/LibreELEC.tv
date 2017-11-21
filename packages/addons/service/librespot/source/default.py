@@ -90,12 +90,13 @@ class Player(xbmc.Player):
          systemctl('restart')
 
    def onPlayBackStarted(self):
-      if self.getPlayingFile() != self.ITEM:
+      if xbmcaddon.Addon().getSetting('ls_x') == 'false' and self.getPlayingFile() != self.ITEM:
          suspendSink('1')
          systemctl('stop')
 
    def onPlayBackStopped(self):
-      systemctl('restart')
+      if xbmcaddon.Addon().getSetting('ls_x') == 'false' and self.isPlayingVideo() == false:
+		 systemctl('restart')
 
    def play(self):
       if not self.isPlaying() and xbmcaddon.Addon().getSetting('ls_O') == 'Kodi':
